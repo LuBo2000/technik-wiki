@@ -129,29 +129,55 @@ function renderWiki(data) {
     searchInfo.textContent = `${data.length} Eintrag${data.length !== 1 ? 'e' : ''} gefunden`;
 }
 
-// Suche-Logik (durchsucht Titel, Beschreibung und Subkategorie)
+// Suche-Logik (durchsucht Titel, Beschreibung, Subkategorie und respektiert aktive Filter)
 document.getElementById('searchInput').addEventListener('input', (e) => {
-    const val = e.target.value.toLowerCase().trim();
-    
+    const valRaw = e.target.value;
+    const val = valRaw.toLowerCase().trim();
+
     if (!val) {
-        // Wenn Suchfeld leer ist, Filter zurücksetzen
-        selectedCategory = null;
-        selectedSubcategory = null;
-        renderWiki(wikiData.sort((a, b) => a.t.localeCompare(b.t)));
-        document.getElementById('subcategoryContainer').innerHTML = '';
-        document.getElementById('searchInfo').textContent = '';
+        // Wenn Suchfeld leer ist: zeige je nach aktiver Kategorie entweder alle oder die Kategorie-Inhalte
+        if (selectedCategory) {
+            const filtered = wikiData.filter(i => i.c === selectedCategory);
+            renderWiki(filtered.sort((a, b) => a.t.localeCompare(b.t)));
+            updateSubcategoryButtons(selectedCategory);
+            document.getElementById('searchInfo').textContent = `Gefiltert nach Kategorie: ${selectedCategory}`;
+        } else {
+            // Kein Filter aktiv -> komplettes Wiki
+            selectedCategory = null;
+            selectedSubcategory = null;
+            renderWiki(wikiData.sort((a, b) => a.t.localeCompare(b.t)));
+            document.getElementById('subcategoryContainer').innerHTML = '';
+            document.getElementById('searchInfo').textContent = '';
+        }
         return;
     }
-    
-    const filtered = wikiData.filter(i => 
-        i.t.toLowerCase().includes(val) || 
+
+    // Grundlegende Suche über alle Felder
+    let filtered = wikiData.filter(i => 
+        i.t.toLowerCase().includes(val) ||
         i.d.toLowerCase().includes(val) ||
         (i.s && i.s.toLowerCase().includes(val)) ||
         i.c.toLowerCase().includes(val)
     );
-    
-    renderWiki(filtered);
-    document.getElementById('subcategoryContainer').innerHTML = '';
+
+    // Wenn eine Kategorie ausgewählt ist, beschränke die Suche darauf
+    if (selectedCategory) filtered = filtered.filter(i => i.c === selectedCategory);
+    // Wenn zusätzlich eine Subkategorie ausgewählt ist, weiter einschränken
+    if (selectedSubcategory) filtered = filtered.filter(i => i.s === selectedSubcategory);
+
+    renderWiki(filtered.sort((a, b) => a.t.localeCompare(b.t)));
+
+    // Subkategorien-Leiste sichtbar halten, wenn Kategorie aktiv ist
+    if (selectedCategory) updateSubcategoryButtons(selectedCategory);
+    else document.getElementById('subcategoryContainer').innerHTML = '';
+
+    // Status-Info
+    const parts = [];
+    parts.push(`Suche: "${valRaw}"`);
+    if (selectedCategory) parts.push(`in ${selectedCategory}`);
+    if (selectedSubcategory) parts.push(`→ ${selectedSubcategory}`);
+    parts.push(`(${filtered.length})`);
+    document.getElementById('searchInfo').textContent = parts.join(' ');
 });
 
 // Filter-Logik für Hauptkategorien
