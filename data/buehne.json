@@ -1,0 +1,15 @@
+{
+  "category": "Bühne",
+  "terms": [
+    { "t": "Truss", "c": "Bühne", "s": "Traversen & Aufhängung", "d": "Gittertraverse aus Aluminium, die als Grundgerüst für Licht, Ton und Deko dient." },
+    { "t": "Kettenzug D8", "c": "Bühne", "s": "Traversen & Aufhängung", "d": "Elektrokettenzug für den Aufbau. Unter schwebender Last darf sich niemand aufhalten (Sekundärsicherung nötig)." },
+    { "t": "Kettenzug D8 Plus", "c": "Bühne", "s": "Traversen & Aufhängung", "d": "Zug mit doppelter Bremse und höherem Sicherheitsfaktor. Erlaubt das Verbleiben der Last ohne Sekundärsicherung." },
+    { "t": "Kettenzug C1", "c": "Bühne", "s": "Traversen & Aufhängung", "d": "Punktzug für Szenenfahrten über Personen (höchste Sicherheitsstufe)." },
+    { "t": "Safety", "c": "Bühne", "s": "Sicherung & Befestigung", "d": "Sicherungsseil aus Stahl, das Geräte (z.B. Scheinwerfer) zusätzlich gegen Herabfallen sichert." },
+    { "t": "Molton", "c": "Bühne", "s": "Sicherung & Befestigung", "d": "Schwer entflammbarer Baumwollstoff (B1), meist schwarz, zum Abhängen von Bühnen oder Wänden." },
+    { "t": "Gaffa", "c": "Bühne", "s": "Sicherung & Befestigung", "d": "Gewebe-Klebeband, das sich meist rückstandslos entfernen lässt. Der Allzweckreiniger der Technik." },
+    { "t": "Schäkel", "c": "Bühne", "s": "Sicherung & Befestigung", "d": "U-förmiger Metallbügel mit Schraubbolzen zum Verbinden von Anschlagmitteln." },
+    { "t": "Half Coupler", "c": "Bühne", "s": "Sicherung & Befestigung", "d": "Halbschelle zur Befestigung von Geräten direkt an der Traverse." },
+    { "t": "Steelflex", "c": "Bühne", "s": "Sicherung & Befestigung", "d": "Rundschlinge mit Stahlseileinlage (feuerfest), wird zum Anschlagen von Traversen genutzt." }
+  ]
+}

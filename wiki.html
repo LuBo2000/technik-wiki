@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!-- 
+    Veranstaltungstechnik Wiki - Optimiert für GitHub Pages
+    Repository: https://github.com/LuBo2000/technik-wiki
+    Live: https://lubo2000.github.io/technik-wiki/
+    
+    Dieses Projekt verwendet:
+    - Relative Pfade für maximale Kompatibilität
+    - Dynamische Base-Path-Erkennung (script.js)
+    - Keine externen Abhängigkeiten außer Tailwind CSS CDN
+-->
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +18,9 @@
     <style>
         .category-pill { cursor: pointer; transition: all 0.3s; }
         .category-pill:hover { opacity: 0.8; transform: translateY(-1px); }
+        .tag-pill { cursor: pointer; transition: all 0.3s; display: inline-block; }
+        .tag-pill:hover { opacity: 0.8; }
+        .tag-badge { display: inline-block; margin-left: 0.5rem; }
         .term-card { transition: all 0.2s; border-left: 4px solid #3b82f6; }
         .term-card:hover { transform: translateX(5px); }
         body { background-color: #0f172a; color: #f1f5f9; }
@@ -15,276 +28,45 @@
 </head>
 <body class="p-4 md:p-8">
 
-    <div class="max-w-5xl mx-auto">
+    <div class="max-w-6xl mx-auto">
         <header class="mb-8 text-center">
             <h1 class="text-4xl font-bold text-blue-400 mb-2">Veranstaltungstechnik Wiki</h1>
             <p class="text-slate-400 italic">"Gaffa hält die Welt zusammen, dieses Wiki den Rest."</p>
         </header>
 
+        <!-- Sticky Filter Bar -->
         <div class="sticky top-0 bg-slate-900 z-10 p-4 rounded-xl shadow-2xl mb-8 border border-slate-700">
-            <input type="text" id="searchInput" placeholder="Begriff suchen (z.B. DMX, XLR, Schuko)..." 
-                   class="w-full p-4 rounded-lg bg-slate-800 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white mb-4">
+            <!-- Suchleiste -->
+            <input type="text" id="searchInput" placeholder="Begriff oder Tag suchen (z.B. DMX, Niere, grandMA3, Physik)..." 
+                   class="w-full p-3 rounded-lg bg-slate-800 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white mb-4">
             
-            <div id="filterContainer" class="flex flex-wrap gap-2 justify-center">
-                <span class="category-pill bg-blue-600 px-3 py-1 rounded-full text-sm font-bold" onclick="filterCategory('All')">Alle</span>
-                <span class="category-pill bg-emerald-600 px-3 py-1 rounded-full text-sm font-bold" onclick="filterCategory('Allgemein')">Allgemein</span>
-                <span class="category-pill bg-red-600 px-3 py-1 rounded-full text-sm font-bold" onclick="filterCategory('Ton')">Ton</span>
-                <span class="category-pill bg-yellow-600 px-3 py-1 rounded-full text-sm font-bold" onclick="filterCategory('Licht')">Licht</span>
-                <span class="category-pill bg-purple-600 px-3 py-1 rounded-full text-sm font-bold" onclick="filterCategory('Video')">Video</span>
-                <span class="category-pill bg-orange-600 px-3 py-1 rounded-full text-sm font-bold" onclick="filterCategory('Bühne')">Bühne</span>
-                <span class="category-pill bg-blue-400 px-3 py-1 rounded-full text-sm font-bold" onclick="filterCategory('Strom')">Strom</span>
-                <span class="category-pill bg-indigo-600 px-3 py-1 rounded-full text-sm font-bold" onclick="filterCategory('Netzwerk')">Netzwerk</span>
+            <!-- Kategorie Filter -->
+            <div class="mb-4">
+                <div class="text-xs text-slate-400 font-bold mb-2">🏷️ KATEGORIEN:</div>
+                <div id="filterContainer" class="flex flex-wrap gap-2 justify-center">
+                    <span class="category-pill bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('All')">Alle</span>
+                    <span class="category-pill bg-emerald-600 hover:bg-emerald-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('Allgemein')">Allgemein</span>
+                    <span class="category-pill bg-red-600 hover:bg-red-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('Ton')">🎤 Ton</span>
+                    <span class="category-pill bg-yellow-600 hover:bg-yellow-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer text-slate-900" onclick="filterCategory('Licht')">💡 Licht</span>
+                    <span class="category-pill bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('Video')">🎬 Video</span>
+                    <span class="category-pill bg-orange-600 hover:bg-orange-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('Bühne')">🎭 Bühne</span>
+                    <span class="category-pill bg-cyan-600 hover:bg-cyan-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('Strom')">⚡ Strom</span>
+                    <span class="category-pill bg-indigo-600 hover:bg-indigo-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('Netzwerk')">🌐 Netzwerk</span>
+                </div>
             </div>
+
+            <!-- Subcategory Tags Container (wird dynamisch gefüllt) -->
+            <div id="subcategoryContainer"></div>
+
+            <!-- Info zur Suche -->
+            <div id="searchInfo" class="text-xs text-slate-500 mt-3 text-center"></div>
         </div>
 
-        <div id="wikiGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            </div>
+        <!-- Ergebnisse Grid -->
+        <div id="wikiGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        </div>
     </div>
 
-    <script>
-        const wikiData = [
- // --- ALLGEMEIN ---
-            { t: "FOH (Front of House)", c: "Allgemein", d: "Der Regieplatz im Zuschauerraum, von dem aus Ton- und Lichttechniker die Show steuern." },
-            { t: "Backline", c: "Allgemein", d: "Das Instrumenten-Equipment einer Band (Amps, Drums, Keyboards), das auf der Bühne steht." },
-            { t: "Stagehand", c: "Allgemein", d: "Helfende Hände beim Auf- und Abbau sowie während der Show (Umbau)." },
-            { t: "Rider", c: "Allgemein", d: "Technisches Dokument (Tech-Rider) oder Verpflegungsliste (Hospitality-Rider) eines Künstlers." },
-            { t: "Plot", c: "Allgemein", d: "Ein technischer Plan, meist für Licht (Lightplot) oder Rigging, der die Positionen der Geräte zeigt." },
-            { t: "Rigger", c: "Allgemein", d: "Spezialist für das Anschlagen von Lasten und Arbeiten in der Höhe (Traversenmontage)." },
-            { t: "IP - Schutzklasse", c: "Allgemein", d: "Ziffernkombination für den Schutz gegen Fremdkörper (1. Ziffer) und Wasser (2. Ziffer), z.B. IP65." },
-            { t: "DGUV V17", c: "Allgemein", d: "Wichtigste Unfallverhütungsvorschrift für 'Veranstaltungs- und Produktionsstätten für szenische Darstellung'." },
-
-            // --- BÜHNENTECHNIK ---
-            { t: "Truss", c: "Bühne", d: "Gittertraverse aus Aluminium, die als Grundgerüst für Licht, Ton und Deko dient." },
-            { t: "Kettenzug D8", c: "Bühne", d: "Elektrokettenzug für den Aufbau. Unter schwebender Last darf sich niemand aufhalten (Sekundärsicherung nötig)." },
-            { t: "Kettenzug D8 Plus", c: "Bühne", d: "Zug mit doppelter Bremse und höherem Sicherheitsfaktor. Erlaubt das Verbleiben der Last ohne Sekundärsicherung." },
-            { t: "Kettenzug C1", c: "Bühne", d: "Punktzug für Szenenfahrten über Personen (höchste Sicherheitsstufe)." },
-            { t: "Safety", c: "Bühne", d: "Sicherungsseil aus Stahl, das Geräte (z.B. Scheinwerfer) zusätzlich gegen Herabfallen sichert." },
-            { t: "Molton", c: "Bühne", d: "Schwer entflammbarer Baumwollstoff (B1), meist schwarz, zum Abhängen von Bühnen oder Wänden." },
-            { t: "Gaffa", c: "Bühne", d: "Gewebe-Klebeband, das sich meist rückstandslos entfernen lässt. Der Allzweckreiniger der Technik." },
-            { t: "Schäkel", c: "Bühne", d: "U-förmiger Metallbügel mit Schraubbolzen zum Verbinden von Anschlagmitteln." },
-            { t: "Half Coupler", c: "Bühne", d: "Halbschelle zur Befestigung von Geräten direkt an der Traverse." },
-            { t: "Steelflex", c: "Bühne", d: "Rundschlinge mit Stahlseileinlage (feuerfest), wird zum Anschlagen von Traversen genutzt." },
-
-            // --- STROM ---
-            { t: "Schuko", c: "Strom", d: "Schutzkontakt-Stecker. Der Standard-Haushaltsstecker für 230V / 16A." },
-            { t: "CEE (Rot)", c: "Strom", d: "Drehstromstecker für höhere Leistungen (16A, 32A, 63A, 125A). 400V Spannung." },
-            { t: "Powercon (True1)", c: "Strom", d: "Verriegelbarer Kaltgerätestecker. True1 (gelb/schwarz) darf unter Last gesteckt/getrennt werden." },
-            { t: "RCD (FI-Schalter)", c: "Strom", d: "Fehlerstrom-Schutzschalter. Schaltet den Stromkreis bei Fehlströmen (Lebensgefahr) blitzschnell ab." },
-            { t: "Lastverteiler", c: "Strom", d: "Stromkiste, die große Zuleitungen (z.B. 32A CEE) auf kleinere Kreise (z.B. 6x Schuko) aufteilt." },
-            { t: "Phase", c: "Strom", d: "Die spannungsführenden Leiter im Stromkreis (L1, L2, L3)." },
-            { t: "Erdung (PE)", c: "Strom", d: "Schutzleiter (grün-gelb), der gefährliche Gehäusespannungen in den Boden ableitet." },
-
-
-            // --- TON: SYSTEME & HARDWARE ---
-            { t: "Line Array", c: "Ton", d: "Ein Beschallungssystem aus übereinander gehängten Lautsprechereinheiten. Durch die Kopplung der Wellenfronten entsteht eine Zylinderwelle, die den Schall deutlich weiter trägt als herkömmliche Boxen und den Pegelabfall über die Distanz halbiert (3dB statt 6dB pro Entfernungsverdopplung)." },
-            { t: "PA-System", c: "Ton", d: "Abkürzung für 'Public Address'. Das Hauptsystem zur Beschallung des Publikums. Es besteht meist aus Topteilen (Mitten/Höhen) und Subwoofern (Bässe)." },
-            { t: "DI-Box (Direct Injection)", c: "Ton", d: "Wandelt ein unsymmetrisches, hochohmiges Signal (z.B. E-Gitarre/Keyboard) in ein symmetrisches, niederohmiges Signal um. Dies verhindert Brummschleifen durch galvanische Trennung (Ground Lift) und ermöglicht lange Kabelwege per XLR ohne Qualitätsverlust." },
-            { t: "Frequenzweiche (Crossover)", c: "Ton", d: "Teilt das Audiosignal in verschiedene Frequenzbereiche auf, damit jeder Lautsprecher nur das bekommt, was er verarbeiten kann (z.B. Tieftöne an den Subwoofer, Hochtöne an den Tweeter). Man unterscheidet aktive (vor der Endstufe) und passive Weichen (in der Box)." },
-            { t: "In-Ear Monitoring (IEM)", c: "Ton", d: "Drahtloses oder kabelgebundenes Monitoring direkt im Ohr des Künstlers. Vorteil: Enormer Schutz des Gehörs, individuelle Mixe und eine aufgeräumte Bühne ohne laute Monitorboxen (verringert Feedback-Gefahr)." },
-            { t: "Dante", c: "Ton", d: "Ein Audio-over-IP-Netzwerkprotokoll. Es ermöglicht die Übertragung hunderter unkomprimierter Audiokanäle über Standard-Gigabit-Netzwerke mit extrem geringer Latenz. Ersetzt das schwere analoge Multicore durch ein dünnes CAT-Kabel." },
-
-            // --- TON: MISCHPULT & PROCESSING ---
-            { t: "Gain", c: "Ton", d: "Die Vorverstärkung des Eingangssignals. Der wichtigste Schritt am Mischpult: Das Signal muss so eingepegelt werden, dass es deutlich über dem Grundrauschen liegt, aber genug 'Headroom' hat, um bei lauten Passagen nicht zu verzerren (Clipping)." },
-            { t: "Kompressor", c: "Ton", d: "Ein Dynamikprozessor, der den Pegelunterschied zwischen leisen und lauten Passagen verringert. Er 'drückt' Signale oberhalb eines Schwellenwerts (Threshold) in einem bestimmten Verhältnis (Ratio) zusammen. Sorgt für Druck und Sprachverständlichkeit." },
-            { t: "Equalizer (Parametrisch)", c: "Ton", d: "Ein Werkzeug zur Klangregelung. Beim parametrischen EQ lassen sich Frequenz, Güte (Q-Faktor/Breite) und Verstärkung/Absenkung (Gain) stufenlos einstellen, um Störfrequenzen präzise zu filtern." },
-            { t: "Aux / Matrix", c: "Ton", d: "Zusätzliche Ausspielwege am Pult. Aux-Sendewege werden meist für Monitor-Mixe oder Effekte genutzt. Eine Matrix ist ein 'Mischer im Mischer', um verschiedene Subgruppen oder Summen auf verschiedene Ausgänge (z.B. Delay-Line, Recording, Frontfill) zu routen." },
-            { t: "DCA (Digitally Controlled Amplifier)", c: "Ton", d: "Eine Fernsteuerung für eine Gruppe von Fadern. Im Gegensatz zur Subgruppe fließt hier kein Audio durch den DCA-Fader; er steuert lediglich die Lautstärke aller zugewiesenen Kanäle proportional (praktisch für das gesamte Schlagzeug)." },
-            { t: "PFL (Pre-Fader Listening)", c: "Ton", d: "Ermöglicht es dem Techniker, ein Signal auf dem Kopfhörer oder am Pegelmeter zu kontrollieren, bevor der Fader hochgezogen wird. Wichtig für den Soundcheck während der Show." },
-
-            // --- TON: MIKROFONIE & PHYSIK ---
-            { t: "Phantomspeisung (48V)", c: "Ton", d: "Eine Gleichspannung von meist 48V, die über das XLR-Kabel an Mikrofone gesendet wird. Sie wird zwingend für Kondensatormikrofone (für die Elektronik und die Kapselvorspannung) sowie für aktive DI-Boxen benötigt." },
-            { t: "Richtcharakteristik", c: "Ton", d: "Beschreibt, aus welcher Richtung ein Mikrofon den Schall am stärksten aufnimmt. Wichtigste Typen: Niere (vorne laut, hinten leise), Kugel (überall gleich), Superniere (stark gerichtet) und Acht (vorne/hinten)." },
-            { t: "Feedback (Rückkopplung)", c: "Ton", d: "Ein schriller Pfeifton, der entsteht, wenn ein Mikrofon sein eigenes verstärktes Signal aus einem Lautsprecher wieder aufnimmt. Ein Teufelskreis aus Verstärkung. Lösung: EQ-Eingriffe, Mikrofonpositionierung oder Feedback-Destroyer." },
-            { t: "SPL (Sound Pressure Level)", c: "Ton", d: "Der Schalldruckpegel, gemessen in Dezibel (dB). Er gibt die Lautstärke an. Wichtig für Gehörschutz-Vorschriften und die Limitierung bei Veranstaltungen (DIN 15905-5)." },
-            { t: "Raummoden", c: "Ton", d: "Stehende Wellen in einem Raum, die durch Reflexionen an den Wänden entstehen. Sie führen dazu, dass bestimmte Bassfrequenzen an manchen Stellen extrem laut 'dröhnen' und an anderen fast verschwinden." },
-            
-            // --- TON: MIKROFONTYPEN ---
-            { t: "Dynamisches Mikrofon", c: "Ton", d: "Arbeitet nach dem Induktionsprinzip (Tauchspule). Eine Membran bewegt eine Spule in einem Magnetfeld. Vorteile: Sehr robust, verträgt extrem hohe Schalldruckpegel (SPL), benötigt keine Phantomspeisung. Ideal für Live-Gesang, Schlagzeug (Snare/Kick) und laute Gitarrenverstärker." },
-            { t: "Kondensatormikrofon", c: "Ton", d: "Basiert auf der Kapazitätsänderung einer hauchdünnen, goldbedampften Membran vor einer Gegenelektrode. Da die Masse der Membran sehr gering ist, reagiert es extrem schnell auf Impulse und bildet hohe Frequenzen sehr präzise ab. Benötigt zwingend Phantomspeisung (48V). Ideal für Overheads, Akustikgitarren und Sprache im Studio." },
-            { t: "Bändchenmikrofon (Ribbon)", c: "Ton", d: "Ein Spezialtyp des dynamischen Mikrofons, bei dem ein extrem dünner Aluminiumstreifen im Magnetfeld schwingt. Es liefert einen sehr 'warmen', natürlichen Klang. Achtung: Sehr empfindlich gegen mechanische Erschütterungen und kann durch versehentlich angelegte Phantomspeisung bei alten Modellen beschädigt werden." },
-            { t: "Lavaliermikrofon", c: "Ton", d: "Winzige Mikrofone (Ansteckmikrofone), die meist an der Kleidung oder am Kopf (als Headset) getragen werden. Sie werden fast immer mit Bodypacks (Taschensendern) betrieben. Haupteinsatz: Konferenzen, Theater und TV-Produktionen." },
-            { t: "Shotgun-Mikrofon (Richtrohr)", c: "Ton", d: "Besitzt ein langes Interferenzrohr vor der Kapsel, das seitlich eintreffenden Schall durch Auslöschung dämpft. Dadurch erreicht es eine extrem starke Richtwirkung nach vorne. Einsatz: Filmsets oder Sportübertragungen, um Schallquellen aus der Distanz zu isolieren." },
-            { t: "Grenzflächenmikrofon", c: "Ton", d: "Ein Mikrofon mit einer Halbkugel-Charakteristik, das direkt auf eine große Fläche (Boden, Tisch, Wand) gelegt wird. Die Fläche wirkt als Schallreflektor, was den Pegel erhöht und Kammfiltereffekte minimiert. Klassisch in einer Kick-Drum oder auf Konferenztischen zu finden." },
-
-            // --- TON: RICHTCHARAKTERISTIKEN ---
-            { t: "Kugel (Omni)", c: "Ton", d: "Nimmt Schall aus allen Richtungen (360 Grad) gleichermaßen laut auf. Hat keinen Nahbesprechungseffekt und ist unempfindlich gegenüber Windgeräuschen. Schwer live einzusetzen, da die Feedbackgefahr sehr hoch ist." },
-            { t: "Niere (Cardioid)", c: "Ton", d: "Die Standard-Charakteristik für Live-Bühnen. Schall von vorne wird bevorzugt aufgenommen, Schall von hinten (180 Grad) maximal unterdrückt. Ideal, um Monitore auf der Bühne auszublenden." },
-            { t: "Superniere / Hyperniere", c: "Ton", d: "Noch stärker nach vorne gerichtet als die Niere. Sie blendet Schall von den Seiten (ca. 120 Grad) extrem gut aus, hat aber eine kleine 'Keule' nach hinten. Wichtig: Monitore dürfen hier nicht direkt hinter dem Mikro stehen, sondern müssen leicht versetzt (schräg) platziert werden." },
-            { t: "Acht (Figure-8)", c: "Ton", d: "Nimmt Schall von vorne und hinten gleichermaßen auf, blendet Schall von den Seiten (90 Grad) jedoch fast komplett aus. Typisch für Bändchenmikrofone oder spezielle Recording-Setups wie M/S-Stereofonie." },
-
-            // --- TON: ZUBEHÖR & EFFEKTE ---
-            { t: "Popschutz / Windschutz", c: "Ton", d: "Ein feinmaschiges Gewebe oder Schaumstoff vor der Kapsel. Es bricht den harten Luftstrom von Plosivlauten (P, B, T) oder Wind, bevor er die Membran trifft und ein unangenehmes 'Ploppen' oder Rumpeln verursacht." },
-            { t: "Spinne (Shock Mount)", c: "Ton", d: "Eine elastische Aufhängung für das Mikrofon im Stativ. Sie entkoppelt das Gehäuse mechanisch vom Boden, sodass Trittschall oder Erschütterungen am Stativ nicht als tieffrequentes Rumpeln im Signal landen." },
-            { t: "Nahbesprechungseffekt", c: "Ton", d: "Ein physikalisches Phänomen bei gerichteten Mikrofonen (Niere/Acht): Je näher die Schallquelle an der Kapsel ist, desto stärker werden die tiefen Frequenzen angehoben. Sänger nutzen dies bewusst für eine 'vollere' Stimme." },
-
-// --- LICHT: PHYSIK & FARBE ---
-            { t: "Lumen vs. Lux", c: "Licht", d: "Lumen (lm) misst den gesamten Lichtstrom, den eine Quelle aussendet. Lux (lx) gibt die Beleuchtungsstärke an, also wie viel Licht tatsächlich auf einer bestimmten Fläche ankommt (1 Lux = 1 Lumen/m²). Wichtig für die Planung der Helligkeit auf der Bühne." },
-            { t: "Farbtemperatur (Kelvin)", c: "Licht", d: "Gibt den Farbeindruck einer Lichtquelle an. Niedrige Werte (~2700K-3200K) wirken 'warmweiß' (Kunstlicht/Halogen), hohe Werte (~5600K-6500K) wirken 'kaltweiß' (Tageslicht). Wichtig für den Weißabgleich von Kameras." },
-            { t: "CRI (Color Rendering Index)", c: "Licht", d: "Der Farbwiedergabeindex (Ra) beschreibt, wie natürlich Farben unter künstlichem Licht erscheinen. Ein CRI von 100 entspricht Sonnenlicht. In der Veranstaltungstechnik ist ein CRI >90 kritisch für Gesichter und Hauttöne." },
-            { t: "RGBWUA", c: "Licht", d: "Moderne LED-Farbmischung: Rot, Grün, Blau, Weiß, Amber (Bernstein) und UV. Durch die zusätzliche Beigabe von Weiß und Amber lassen sich deutlich schönere Pastelltöne und ein natürlicheres Warmweiß mischen als mit reinem RGB." },
-            { t: "CTO / CTB Filter", c: "Licht", d: "Konversionsfilter. CTO (Color Temperature Orange) korrigiert kaltes Tageslicht in Richtung warmes Kunstlicht. CTB (Color Temperature Blue) macht warmes Halogenlicht kälter." },
-
-            // --- LICHT: STEUERUNG & PROTOKOLLE ---
-            { t: "DMX512", c: "Licht", d: "Digital Multiplex. Das Standardprotokoll der Lichttechnik. Ein 'Universum' umfasst 512 Kanäle, wobei jeder Kanal einen Wert von 0 bis 255 annehmen kann. Die Verkabelung erfolgt meist über 5-polige XLR-Kabel in einer Kette (Daisy Chain) mit Abschlusswiderstand." },
-            { t: "Art-Net / sACN", c: "Licht", d: "Protokolle zur Übertragung von DMX-Daten über Ethernet-Netzwerke. Während ein klassisches DMX-Kabel nur ein Universum trägt, können über ein einziges CAT-Kabel hunderte Universen gleichzeitig gesendet werden. sACN ist dabei oft stabiler für große Installationen (Multicast)." },
-            { t: "Cue / Cuelist", c: "Licht", d: "Ein 'Cue' ist ein gespeicherter Lichtzustand (Szene). Eine Cuelist ist eine Abfolge dieser Szenen, die nacheinander (z.B. per Go-Taste) abgerufen werden. Wichtig für Theater und fest durchgeplante Shows." },
-            { t: "Timecode (LTC/MTC)", c: "Licht", d: "Ein Zeitsignal, das Lichtpult, Video-Server und Audio-Zuspieler synchronisiert. Dadurch können Lichteffekte auf die Millisekunde genau passend zur Musik programmiert werden, ohne dass ein Operator manuell drücken muss." },
-
-            // --- LICHT: GERÄTETYPEN (FIXTURES) ---
-            { t: "Moving Head (Spot / Wash / Beam)", c: "Licht", d: "Kopfbewegter Scheinwerfer. SPOT: Besitzt Gobos (Muster) und eine scharfe Abbildung. WASH: Erzeugt ein weiches Licht zum Fluten von Flächen (ähnlich wie eine Fresnel). BEAM: Erzeugt einen extrem engen, parallelen Lichtstrahl mit hoher Reichweite." },
-            { t: "Fresnel (Stufenlinse)", c: "Licht", d: "Der klassische Theaterscheinwerfer mit weichem Rand. Durch Verschieben des Leuchtmittels hinter der Linse lässt sich der Lichtkegel vergrößern oder verkleinern (Spot/Flood). Ideal für gleichmäßiges Frontlicht." },
-            { t: "Profiler (Profilscheinwerfer)", c: "Licht", d: "Ermöglicht extrem scharf abgegrenzte Lichtkegel. Mit internen Blendenschiebern kann das Licht exakt beschnitten werden (z.B. um nur ein Bild an der Wand zu beleuchten). Kann auch Gobos projizieren." },
-            { t: "Blinder", c: "Licht", d: "Sehr helle, meist warmweiße Scheinwerfer (traditionell Halogen), die direkt ins Publikum gerichtet werden. Sie erzeugen einen massiven Lichteffekt und Hitzegefühl." },
-            { t: "Hazer vs. Nebelmaschine", c: "Licht", d: "Eine Nebelmaschine erzeugt dichte Wolken (Effekt). Ein Hazer erzeugt einen feinen, kaum sichtbaren Dunst, der nur dazu dient, die Lichtstrahlen im Raum sichtbar zu machen ('Beams'), ohne die Sicht auf die Bühne zu behindern." },
-
-            // --- LICHT: POSITIONEN & SETUP ---
-            { t: "Gasse", c: "Licht", d: "Beleuchtung von der Seite (Seitenlicht), oft auf Stativen in den Bühneneingängen platziert. Besonders wichtig im Tanz und Theater, um die Plastizität der Körper hervorzuheben." },
-            { t: "Spitzenlicht (Backlight)", c: "Licht", d: "Licht von hinten oben. Es erzeugt eine Lichtkante auf den Schultern und Haaren der Personen, wodurch sie sich optisch vom Hintergrund abheben (3D-Effekt)." },
-            { t: "Uplight", c: "Licht", d: "Scheinwerfer, die am Boden stehen und Wände oder Säulen von unten nach oben beleuchten. Klassisch für Ambiente-Beleuchtung bei Gala-Events." },
-           
-            // --- LICHT: MOVING HEAD TYPEN ---
-            { t: "Spot (Moving Head)", c: "Licht", d: "Der Allrounder für Projektionen. Besitzt ein optisches System, das scharfe Abbildungen ermöglicht. Features: Gobos (Muster), meist zwei Farbräder oder CMY-Farbmischung, Iris und ein Prisma zur Vervielfältigung des Bildes. Ideal, um Logos zu zeigen oder Texturen auf den Boden zu werfen." },
-            { t: "Wash (Moving Head)", c: "Licht", d: "Funktioniert wie ein beweglicher Fluter. Er hat eine Fresnellinse oder eine PC-Linse, die einen weichen Rand erzeugt. Hauptaufgabe ist das flächige Ausleuchten von Personen oder Bühnenbereichen. Moderne LED-Washer bieten oft 'Single Pixel Control', womit jeder LED-Punkt einzeln angesteuert werden kann." },
-            { t: "Beam (Moving Head)", c: "Licht", d: "Ein Spezialist für Effekte. Erzeugt einen extrem engen, fast parallelen Lichtstrahl mit enormer Intensität (ähnlich einem Laser). Die Optik ist darauf optimiert, dass der Strahl auch auf große Distanz kaum breiter wird. Gobos sind hier meist sehr klein und dienen eher dazu, den Strahl zu formen." },
-            { t: "Hybrid (Moving Head)", c: "Licht", d: "Ein Gerät, das per Software-Umschaltung der Optik alle drei Modi (Beam, Spot, Wash) abdecken kann. Sehr beliebt bei Verleihern, da sie extrem flexibel einsetzbar sind, oft aber mit kleinen Kompromissen in der Lichtausbeute im Vergleich zu Spezialisten." },
-
-            // --- LICHT: grandMA3 SPEZIAL ---
-            { t: "MA3: Recipes", c: "Licht", d: "Das revolutionärste Feature der gMA3. Ein 'Rezept' speichert nicht die fertigen Werte, sondern die 'Zutaten' (Welche Lampen? Welches Preset? Welches Delay?). Ändert man die Gruppe im Rezept, passt sich die ganze Show automatisch an. Ideal für Tourneen mit wechselnden Setups." },
-            { t: "MA3: Phaser", c: "Licht", d: "Die Weiterentwicklung der Effekte. Phaser erlauben es, komplexe Bewegungen oder Farbverläufe über mehrere 'Steps' direkt im 3D-Raum zu programmieren. Man kann sie live am Encoder-Rad 'ziehen' und verformen, statt nur starre Tabellenwerte zu nutzen." },
-            { t: "MA3: Selection Grid", c: "Licht", d: "Ein 3D-Koordinatensystem für deine Lampen. Das Pult weiß nicht mehr nur, welche Lampe die 'Nr. 1' ist, sondern wo sie physisch hängt. Effekte (Phaser) können so ganz einfach 'von links nach rechts' oder 'von oben nach unten' über das Grid geschoben werden." },
-            { t: "MA3: MVR / GDTF", c: "Licht", d: "Neue Standards für den Datenaustausch. GDTF ist ein universelles Dateiformat für Lampen-Eigenschaften. MVR erlaubt es, eine komplette 3D-Bühne inklusive Positionen und Patch zwischen CAD-Programmen (wie Vectorworks) und dem Pult hin- und herzuschieben." },
-            { t: "MA3: Appearance & Scribbles", c: "Licht", d: "Ermöglicht das visuelle Gestalten der Benutzeroberfläche. Man kann Bilder, Icons oder handgeschriebene Notizen (Scribbles) auf Pools und Buttons legen, um in der Hektik einer Live-Show schneller zu reagieren." },
-            
-            { t: "Preset", c: "Licht", d: "Die wichtigsten Bausteine einer Show. Ein Preset speichert Werte (z.B. Position 'Sänger' oder Farbe 'Rot') separat ab. In Cues werden dann nicht die nackten Zahlen gespeichert, sondern nur der Verweis auf das Preset. Vorteil: Ändert sich die Position des Sängers, muss man nur das eine Preset aktualisieren und alle Cues in der gesamten Show stimmen automatisch wieder." },
-            { t: "Cue", c: "Licht", d: "Ein 'Cue' (Stichwort/Szene) ist ein einzelner Speicherpunkt innerhalb eines Ablaufs. Er enthält Informationen darüber, welche Lampen was tun, sowie Zeitwerte (Fade-Time) für den Übergang vom vorherigen Zustand." },
-            { t: "Sequence / Cuelist", c: "Licht", d: "Eine Sequence ist der Container, in dem mehrere Cues nacheinander sortiert sind. In der Theaterwelt spricht man oft von einer Cuelist, die von vorne bis hinten durchgeklickt wird. In der Rock'n'Roll-Welt hat man oft viele kleine Sequenzen (z.B. eine nur für Farben, eine für Bewegungen)." },
-            { t: "Tracking", c: "Licht", d: "Das wichtigste Prinzip Profi-Pulte: Ein Pult speichert in einem Cue nur die Änderungen. Wenn Lampe 1 in Cue 1 auf 'Blau' geht, bleibt sie in Cue 2, 3 und 4 auch 'Blau', ohne dass man es dort erneut speichern muss. Erst wenn in Cue 5 der Befehl 'Rot' kommt, ändert sie sich. Das spart Daten und Rechenleistung, erfordert aber vorausschauendes Programmieren." },
-            { t: "Executor", c: "Licht", d: "Die physikalischen oder virtuellen Bedienelemente (Fader und Tasten) am Pult. Man weist einer Sequence einen Executor zu, um sie per Hardware-Regler in der Helligkeit zu steuern oder per Taste zu starten ('Go')." },
-            { t: "Programmer", c: "Licht", d: "Ein unsichtbarer Zwischenspeicher im Pult. Alles, was man gerade manuell anwählt oder ändert, landet erst im Programmer (wird meist rot hinterlegt). Erst durch den Befehl 'Store' werden die Werte aus dem Programmer fest in einen Cue oder ein Preset geschrieben." },
-            { t: "Fade Time vs. Delay Time", c: "Licht", d: "Fade Time bestimmt, wie lange ein Übergang von Szene A zu B dauert (z.B. 2 Sekunden sanftes Einblenden). Delay Time bestimmt die Wartezeit, bevor der Fade überhaupt erst beginnt. Mit versetzten Delays lassen sich 'Wellen-Effekte' über die Bühne erzeugen." },
-            { t: "Group", c: "Licht", d: "Eine logische Zusammenfassung von Lampen (z.B. 'Alle Moving Heads oben' oder 'Frontlicht'). Gruppen enthalten keine Werte, sondern dienen nur der schnellen Auswahl der Geräte beim Programmieren." },
-            { t: "Blind Mode", c: "Licht", d: "Ein Modus, in dem man programmieren kann, ohne dass die Änderungen live auf der Bühne ausgegeben werden. Man sieht die Änderungen nur im Visualisierer oder auf den Pult-Displays – ideal für Korrekturen während einer laufenden Show." },
-
-            // --- HANDLING: EXECUTOR BUTTONS ---
-            { t: "Go+ (Large Go)", c: "Licht", d: "Der Standardbefehl für Cuelisten. Startet den nächsten Cue in der Sequenz unter Berücksichtigung der gespeicherten Fade-Zeiten. Drückst du während eines laufenden Fades erneut Go+, wird der aktuelle Fade meist abgebrochen und der nächste Cue gestartet." },
-            { t: "Go- (Back)", c: "Licht", d: "Geht einen Cue in der Liste zurück. Je nach Pult-Einstellung geschieht dies entweder mit einer festen 'Back-Time' oder mit der Zeit, die im vorherigen Cue gespeichert war." },
-            { t: "Flash", c: "Licht", d: "Solange die Taste gedrückt gehalten wird, wird die Intensität der Sequenz auf 100% gesetzt. Sobald man loslässt, geht sie sofort auf 0% (oder den Fader-Wert) zurück. Andere Attribute wie Farbe oder Position werden meist nicht beeinflusst." },
-            { t: "Temp", c: "Licht", d: "Ähnlich wie Flash, aber mit einem entscheidenden Unterschied: Temp berücksichtigt die Fade-Zeiten des Cues. Drückst du die Taste, blendet die Szene sanft ein; lässt du los, blendet sie sanft aus. Ideal für weiche Akzente." },
-            { t: "Toggle", c: "Licht", d: "Ein Schalter-Modus. Drückst du die Taste einmal, geht die Sequenz an und bleibt an. Drückst du sie erneut, geht sie aus. Perfekt für Grundlicht oder dauerhafte Effekte." },
-            { t: "Swop (Solo)", c: "Licht", d: "Eine aggressive Flash-Funktion. Wenn du Swop drückst, wird diese Sequenz auf 100% gesetzt, während die Intensität ALLER anderen aktiven Executoren auf 0% gedrückt wird. Nur dieser eine Executor steht im Rampenlicht." },
-            { t: "On / Off", c: "Licht", d: "Harte Befehle. 'On' startet die Sequenz (meist bei Cue 1), auch wenn sie bereits lief. 'Off' schaltet die Sequenz sofort aus und setzt sie zurück. Oft nutzt man eine Taste als 'Off', um Platz auf den Fadern zu sparen." },
-            { t: "Top", c: "Licht", d: "Springt sofort zum ersten Cue der Sequenz zurück, ohne sie jedoch auszuschalten oder den aktuellen Fade zu stoppen." },
-
-            // --- HANDLING: FADER MODES ---
-            { t: "Master Fader", c: "Licht", d: "Der Standard-Modus. Der Fader regelt die Intensität (Helligkeit) der in der Sequenz gespeicherten Lampen von 0% bis 100%." },
-            { t: "Temp Fader", c: "Licht", d: "Hier steuert der Fader nicht nur die Helligkeit, sondern 'fadet' alle Werte des Cues ein. Schiebst du den Fader hoch, bewegen sich die Moving Heads langsam auf Position und ändern die Farbe proportional zur Faderstellung." },
-            { t: "Speed Master", c: "Licht", d: "Der Fader steuert nicht die Helligkeit, sondern die Geschwindigkeit (BPM) eines laufenden Effekts oder Chasers. Oben ist extrem schnell, unten ist Stillstand." },
-            { t: "Rate Master", c: "Licht", d: "Ein Multiplikator für die Zeit. Steht der Fader in der Mitte (1:1), laufen alle Cues in ihrer programmierten Zeit. Schiebst du ihn hoch, laufen die Fades schneller ab; schiebst du ihn runter, werden sie extrem verlangsamt." },
-            { t: "Crossfade", c: "Licht", d: "Wird oft im Theater genutzt. Mit zwei Fadern (oder einem manuellen Crossfader) blendet man händisch von Cue A nach Cue B über. Man hat die volle Kontrolle über die Geschwindigkeit des Bildwechsels." },
-
-// --- VIDEO: HARDWARE & DISPLAYS ---
-            { t: "Beamer (Projektor)", c: "Video", d: "Projiziert Bilder auf Flächen. Wichtige Kennzahlen sind die Helligkeit (gemessen in ANSI-Lumen) und die Auflösung (z.B. 4K oder WUXGA). Man unterscheidet meist zwischen LCD-Projektoren (gute Farbtreue) und DLP-Projektoren (hoher Kontrast, oft im Profi-Bereich)." },
-            { t: "LED-Wand (LED-Wall)", c: "Video", d: "Besteht aus einzelnen LED-Modulen (Cabinets), die zu einer großen Fläche zusammengesetzt werden. Im Gegensatz zum Beamer ist sie tageslichttauglich. Entscheidend ist der 'Pixel Pitch' (Abstand der LEDs in mm) – je kleiner der Wert, desto geringer ist der Mindestbetrachterabstand." },
-            { t: "OLED vs. LCD", c: "Video", d: "LCD-Displays benötigen eine Hintergrundbeleuchtung. OLEDs sind organische LEDs, die selbst leuchten. Vorteil OLED: Perfektes Schwarz (da Pixel komplett ausgeschaltet werden) und extrem hoher Kontrast. Nachteil: Geringere maximale Helligkeit als High-End-LCDs." },
-            { t: "Rückprojektion (Rear Projection)", c: "Video", d: "Der Beamer steht hinter einer halbtransparenten Leinwand und strahlt das Publikum an. Vorteil: Niemand kann durch den Lichtstrahl laufen und Schatten werfen. Erfordert jedoch viel Platz hinter der Bühne." },
-            { t: "Short-Throw-Projector", c: "Video", d: "Kurzdistanzbeamer mit speziellen Weitwinkel-Optiken. Sie können aus sehr geringer Entfernung ein sehr großes Bild erzeugen. Ideal bei wenig Platz oder wenn der Referent direkt vor der Leinwand steht." },
-
-            // --- VIDEO: SIGNALÜBERTRAGUNG ---
-            { t: "SDI (Serial Digital Interface)", c: "Video", d: "Der Profi-Standard für unkomprimiertes Video. Nutzt BNC-Stecker mit Bajonettverschluss (verriegelbar). SDI ist extrem robust, erlaubt Kabellängen bis zu 100m und überträgt neben Video auch Audio und Timecode. Im Gegensatz zu HDMI gibt es hier keinen 'Handshake-Error'." },
-            { t: "HDMI (High-Definition Multimedia Interface)", c: "Video", d: "Konsumer-Standard. Vorteil: Überträgt hohe Auflösungen und Kopierschutz (HDCP). Nachteil: Stecker verriegeln nicht und die Kabellänge ist ohne aktive Verstärker auf ca. 10-15m begrenzt. Bei Video-Regien oft die Fehlerquelle Nr. 1 durch instabile EDID-Verbindungen." },
-            { t: "NDI (Network Device Interface)", c: "Video", d: "Ein IP-basiertes Protokoll von NewTek. Es erlaubt die Übertragung von hochwertigem Video über Standard-Gigabit-Netzwerke. Jedes Gerät im Netzwerk kann als Quelle oder Empfänger fungieren. Revolutionär für Multikamera-Setups ohne teure Videokreuzschienen." },
-            { t: "Capture Card", c: "Video", d: "Hardware-Interface (USB, PCIe oder Thunderbolt), das ein externes Videosignal (z.B. von einer Kamera) für einen Computer 'lesbar' macht. Essenziell für Streaming und Recording." },
-
-            // --- VIDEO: PROCESSING & CONTENT ---
-            { t: "Seamless Switcher", c: "Video", d: "Ein Bildmischer, der hart oder mit Überblendung zwischen Quellen umschaltet, ohne dass es zu einem schwarzen Bild, Flackern oder Ruckeln kommt. Das Pult skaliert alle Quellen intern auf die gleiche Auflösung." },
-            { t: "Videomapping (Projection Mapping)", c: "Video", d: "Die Projektion von passgenauem Content auf unebene Oberflächen (z.B. Hausfassaden oder Autos). Per Software wird das Bild so verzerrt (Warping), dass es exakt auf die reale Geometrie des Objekts passt." },
-            { t: "Pixelmapping", c: "Video", d: "Die Steuerung von LED-Elementen oder Videowänden auf Pixelebene. Oft genutzt, um Lichteffekte (z.B. LED-Stripes) wie ein Videobild anzusteuern, damit flüssige Farbverläufe und Muster entstehen." },
-            { t: "Multiviewer", c: "Video", d: "Ein Gerät oder eine Funktion im Bildmischer, die viele verschiedene Videoquellen gleichzeitig auf einem einzigen Monitor verkleinert darstellt. Unverzichtbar für den Bildmischer-Operator." },
-            { t: "Codec (z.B. H.264 / H.265)", c: "Video", d: "Algorithmus zur Komprimierung und Dekomprimierung von Videodaten. H.264 ist der Standard für Streaming; H.265 (HEVC) bietet bei gleicher Qualität die halbe Datenrate, benötigt aber mehr Rechenleistung." },
-            { t: "EDID (Extended Display Identification Data)", c: "Video", d: "Ein Datensatz, den ein Display an die Grafikkarte sendet, um mitzuteilen, welche Auflösungen und Bildwiederholraten es unterstützt. In der Veranstaltungstechnik 'faked' man oft EDIDs mit speziellen Geräten, um Signalabriss zu verhindern." },
-            
-            // --- VIDEO: PROPRESENTER SPECIALS ---
-            { t: "ProPresenter: Stage Display", c: "Video", d: "Ein separater Ausgang für die Sprecher auf der Bühne (Confidence Monitor). Hier werden oft der aktuelle Text, die nächste Folie, eine Uhrzeit und private Nachrichten an den Redner angezeigt, ohne dass das Publikum dies sieht." },
-            { t: "ProPresenter: Looks", c: "Video", d: "Ermöglicht es, denselben Inhalt auf verschiedenen Ausgängen unterschiedlich darzustellen. Beispiel: Auf der LED-Wand erscheint der Text mit Hintergrundvideo, während im Livestream-Key nur der Text auf grünem Hintergrund (für Transparenz) ausgegeben wird." },
-            { t: "ProPresenter: Layer-Hierarchy", c: "Video", d: "ProPresenter arbeitet mit festen Ebenen (Background, Slide, Props, Announcements). Ein Video im 'Background-Layer' läuft endlos weiter, auch wenn man die Textfolien (Slide-Layer) darüber wechselt. 'Props' (Requisiten) liegen immer ganz oben, z.B. für Logos." },
-            { t: "ProPresenter: Clear Groups", c: "Video", d: "Spezielle Buttons, um gezielt nur bestimmte Ebenen zu löschen (z.B. nur den Text ausblenden, aber das Video im Hintergrund weiterlaufen lassen)." },
-
-            // --- VIDEO: RESOLUME SPECIALS ---
-            { t: "Resolume: DXV Codec", c: "Video", d: "Der hauseigene Video-Codec von Resolume. Er verlagert die Dekomprimierung der Videos von der CPU auf die Grafikkarte (GPU). Das ist essenziell, um dutzende hochauflösende Layer gleichzeitig absolut flüssig und ohne Latenz abzuspielen." },
-            { t: "Resolume: Composition vs. Deck", c: "Video", d: "Eine Composition ist das gesamte Projekt mit allen Einstellungen. Ein Deck ist eine einzelne Seite innerhalb der Composition, auf der Clips sortiert sind (wie eine Seite in einem Fotoalbum). Man wechselt Decks, um schnell neue Inhalte für einen neuen Song zu laden." },
-            { t: "Resolume: Slices", c: "Video", d: "Teilstücke des Video-Ausgangs im 'Advanced Output'. Mit Slices kann man genau festlegen, welcher Teil der Komposition auf welchen Teil der LED-Wand oder auf welchen Beamer gesendet wird. Unverzichtbar für komplexes Mapping." },
-            { t: "Resolume: Warping", c: "Video", d: "Das Verbiegen und Anpassen des Bildes an die reale Geometrie vor Ort. Man zieht einzelne Eckpunkte (Corner Pinning) oder nutzt Bezier-Kurven, um das Bild perfekt auf eine runde Säule oder eine schräge Fläche zu projizieren." },
-            { t: "Resolume: Alpha Channel", c: "Video", d: "Transparenzinformation in einem Video. In Resolume nutzt man Clips mit Alpha-Kanal, um Grafiken oder Animationen über andere Videos zu legen, ohne den Hintergrund komplett zu verdecken." },
-            { t: "Resolume: OSC (Open Sound Control)", c: "Video", d: "Ein Netzwerkprotokoll zur Fernsteuerung. Damit lässt sich Resolume extrem präzise von einem Lichtpult (wie grandMA3) oder einem Smartphone/Tablet steuern, um z.B. Effekte passend zum Licht zu triggern." },
-
-          // --- NETZWERK: GRUNDLAGEN & ADRESSIERUNG ---
-            { t: "IPv4 & IPv6", c: "Netzwerk", d: "Adressprotokolle zur Identifizierung von Geräten. IPv4 nutzt 32-Bit-Adressen (z.B. 192.168.1.10). IPv6 wurde eingeführt, weil die IPv4-Adressen weltweit knapp wurden. In der Eventtechnik nutzen wir fast ausschließlich IPv4, da viele Geräte (Lichtpulte, DSPs) noch kein IPv6 unterstützen." },
-            { t: "Subnet Mask (Subnetzmaske)", c: "Netzwerk", d: "Definiert, welcher Teil der IP-Adresse das Netzwerk und welcher das Gerät bezeichnet. Eine Maske von 255.255.255.0 bedeutet, dass alle Geräte im Bereich 192.168.1.1 bis 192.168.1.254 miteinander kommunizieren können. Wichtig für die Trennung von Systemen." },
-            { t: "DHCP vs. Static IP", c: "Netzwerk", d: "DHCP weist Geräten automatisch eine Adresse zu. In der Eventtechnik nutzt man für kritische Infrastruktur (MA-Net, Dante) jedoch fast immer **Statische IPs**, damit Geräte nach einem Stromausfall sofort unter derselben Adresse wiedergefunden werden." },
-            { t: "MAC-Adresse", c: "Netzwerk", d: "Die weltweit eindeutige Hardware-Adresse eines Netzwerkadapters. Sie ist fest im Chip eingebrannt. Switches nutzen MAC-Tabellen, um zu wissen, an welchem Port welches Gerät hängt." },
-            { t: "DNS (Domain Name System)", c: "Netzwerk", d: "Das 'Telefonbuch' des Internets. Es übersetzt Namen (google.de) in IP-Adressen. Im lokalen Event-Netzwerk oft zweitrangig, es sei denn, es gibt einen lokalen Server." },
-            { t: "Gateway", c: "Netzwerk", d: "Die 'Tür' nach draußen. Meist die IP-Adresse des Routers. Wenn ein Gerät Daten an eine IP außerhalb seines eigenen Subnetzes senden will, schickt es diese an das Gateway." },
-
-            // --- NETZWERK: HARDWARE & KABEL ---
-            { t: "Managed Switch", c: "Netzwerk", d: "Im Gegensatz zum 'dummen' Unmanaged Switch erlaubt er Konfigurationen wie VLANs, Priorisierung (QoS) und Überwachung. In professionellen Setups (Dante/Art-Net) sind Managed Switches Pflicht, um Datenstau zu vermeiden." },
-            { t: "PoE (Power over Ethernet)", c: "Netzwerk", d: "Stromversorgung über das Netzwerkkabel. Es gibt verschiedene Standards (PoE, PoE+, PoE++). Ideal für WLAN-Accesspoints, PTZ-Kameras und VoIP-Telefone, da kein separates Netzteil nötig ist." },
-            { t: "SFP-Modul", c: "Netzwerk", d: "Ein kleiner Einschub-Adapter für Switches. Er erlaubt es, zwischen Kupfer-Anschluss (RJ45) und Glasfaser-Anschluss (LC/SC) zu wählen. So kann man Switches über weite Strecken (Backbone) mit Lichtwellenleitern verbinden." },
-            { t: "CAT 5e / 6 / 7", c: "Netzwerk", d: "Klassen von Kupferkabeln. CAT 5e reicht für Gigabit-Ethernet. CAT 6/7 bietet bessere Schirmung und höhere Frequenzen. Wichtig: In der Eventtechnik werden meist 'Touring-Kabel' (Ethercon) genutzt, die mechanisch belastbarer sind." },
-            { t: "Glasfaser (Fiber)", c: "Netzwerk", d: "Übertragung per Lichtsignalen. Vorteil: Überbrückt kilometerweite Strecken ohne Signalverlust und ist immun gegen elektromagnetische Störungen (neben Stromkabeln). Standard in großen Stadien." },
-
-            // --- NETZWERK: PROTOKOLLE & TRAFFIC ---
-            { t: "VLAN (Virtual Local Area Network)", c: "Netzwerk", d: "Unterteilt einen physischen Switch in mehrere virtuelle Netzwerke. So kann man z.B. Lichtdaten (Art-Net) und Audiodaten (Dante) über dasselbe Kabel schicken, ohne dass sie sich gegenseitig stören." },
-            { t: "Multicast / Unicast / Broadcast", c: "Netzwerk", d: "Unicast: Von einem zu einem. Broadcast: Von einem an ALLE im Netz. Multicast: Von einem an eine definierte Gruppe. Viele Event-Protokolle (sACN, Dante) nutzen Multicast, um Bandbreite zu sparen." },
-            { t: "TCP vs. UDP", c: "Netzwerk", d: "TCP prüft, ob Daten angekommen sind (sicher, aber langsamer). UDP schickt die Daten einfach raus (schnell, aber keine Kontrolle). DMX-over-IP nutzt meist UDP, da Geschwindigkeit wichtiger ist als ein verlorener Datenframe." },
-            { t: "QoS (Quality of Service)", c: "Netzwerk", d: "Priorisierung von Datenpaketen. Wichtig für Audio-Netzwerke: Audiodaten müssen immer Vorrang vor dem Download eines Updates haben, da es sonst zu Tonaussetzern kommt." },
-            { t: "Backbone", c: "Netzwerk", d: "Die Hauptverbindung zwischen den Kern-Switches (z.B. vom FOH zur Bühne). Dieser Teil des Netzwerks sollte die höchste Bandbreite haben (meist 10 Gbit/s oder mehr)." }
-            
-            // ... Hier können alle weiteren Begriffe nach demselben Schema eingefügt werden
-        ];
-
-        // Funktion zum Rendern
-        function renderWiki(data) {
-            const grid = document.getElementById('wikiGrid');
-            grid.innerHTML = '';
-            data.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'term-card bg-slate-800 p-4 rounded-lg shadow border-l-4';
-                // Farbe basierend auf Kategorie
-                if(item.c === 'Ton') card.style.borderLeftColor = '#ef4444';
-                if(item.c === 'Licht') card.style.borderLeftColor = '#eab308';
-                if(item.c === 'Video') card.style.borderLeftColor = '#a855f7';
-                if(item.c === 'Bühne') card.style.borderLeftColor = '#ea580c';
-                
-                card.innerHTML = `
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="font-bold text-lg text-white">${item.t}</h3>
-                        <span class="text-xs font-mono bg-slate-700 px-2 py-1 rounded text-slate-300">${item.c}</span>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed">${item.d}</p>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // Suche-Logik
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const val = e.target.value.toLowerCase();
-            const filtered = wikiData.filter(i => i.t.toLowerCase().includes(val) || i.d.toLowerCase().includes(val));
-            renderWiki(filtered);
-        });
-
-        // Filter-Logik
-        function filterCategory(cat) {
-            if(cat === 'All') {
-                renderWiki(wikiData);
-            } else {
-                const filtered = wikiData.filter(i => i.c === cat);
-                renderWiki(filtered);
-            }
-        }
-
-        // Initiales Rendern
-        renderWiki(wikiData.sort((a, b) => a.t.localeCompare(b.t)));
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

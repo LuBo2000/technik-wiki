@@ -1,0 +1,12 @@
+{
+  "category": "Strom",
+  "terms": [
+    { "t": "Schuko", "c": "Strom", "s": "Stecker & Schnittstellen", "d": "Schutzkontakt-Stecker. Der Standard-Haushaltsstecker für 230V / 16A." },
+    { "t": "CEE (Rot)", "c": "Strom", "s": "Stecker & Schnittstellen", "d": "Drehstromstecker für höhere Leistungen (16A, 32A, 63A, 125A). 400V Spannung." },
+    { "t": "Powercon (True1)", "c": "Strom", "s": "Stecker & Schnittstellen", "d": "Verriegelbarer Kaltgerätestecker. True1 (gelb/schwarz) darf unter Last gesteckt/getrennt werden." },
+    { "t": "RCD (FI-Schalter)", "c": "Strom", "s": "Schutz & Verteilung", "d": "Fehlerstrom-Schutzschalter. Schaltet den Stromkreis bei Fehlströmen (Lebensgefahr) blitzschnell ab." },
+    { "t": "Lastverteiler", "c": "Strom", "s": "Schutz & Verteilung", "d": "Stromkiste, die große Zuleitungen (z.B. 32A CEE) auf kleinere Kreise (z.B. 6x Schuko) aufteilt." },
+    { "t": "Phase", "c": "Strom", "s": "Schutz & Verteilung", "d": "Die spannungsführenden Leiter im Stromkreis (L1, L2, L3)." },
+    { "t": "Erdung (PE)", "c": "Strom", "s": "Schutz & Verteilung", "d": "Schutzleiter (grün-gelb), der gefährliche Gehäusespannungen in den Boden ableitet." }
+  ]
+}

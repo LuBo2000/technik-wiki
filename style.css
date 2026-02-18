@@ -1,0 +1,23 @@
+.category-pill {
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.category-pill:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+.term-card {
+    transition: all 0.2s;
+    border-left: 4px solid #3b82f6;
+}
+
+.term-card:hover {
+    transform: translateX(5px);
+}
+
+body {
+    background-color: #0f172a;
+    color: #f1f5f9;
+}

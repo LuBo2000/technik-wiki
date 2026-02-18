@@ -1,0 +1,13 @@
+{
+  "category": "Allgemein",
+  "terms": [
+    { "t": "FOH (Front of House)", "c": "Allgemein", "s": "Veranstaltungsorganisation", "d": "Der Regieplatz im Zuschauerraum, von dem aus Ton- und Lichttechniker die Show steuern." },
+    { "t": "Backline", "c": "Allgemein", "s": "Veranstaltungsorganisation", "d": "Das Instrumenten-Equipment einer Band (Amps, Drums, Keyboards), das auf der Bühne steht." },
+    { "t": "Stagehand", "c": "Allgemein", "s": "Veranstaltungsorganisation", "d": "Helfende Hände beim Auf- und Abbau sowie während der Show (Umbau)." },
+    { "t": "Rider", "c": "Allgemein", "s": "Veranstaltungsorganisation", "d": "Technisches Dokument (Tech-Rider) oder Verpflegungsliste (Hospitality-Rider) eines Künstlers." },
+    { "t": "Rigger", "c": "Allgemein", "s": "Veranstaltungsorganisation", "d": "Spezialist für das Anschlagen von Lasten und Arbeiten in der Höhe (Traversenmontage)." },
+    { "t": "Plot", "c": "Allgemein", "s": "Ausrüstung & Planung", "d": "Ein technischer Plan, meist für Licht (Lightplot) oder Rigging, der die Positionen der Geräte zeigt." },
+    { "t": "IP - Schutzklasse", "c": "Allgemein", "s": "Sicherheit & Standards", "d": "Ziffernkombination für den Schutz gegen Fremdkörper (1. Ziffer) und Wasser (2. Ziffer), z.B. IP65." },
+    { "t": "DGUV V17", "c": "Allgemein", "s": "Sicherheit & Standards", "d": "Wichtigste Unfallverhütungsvorschrift für 'Veranstaltungs- und Produktionsstätten für szenische Darstellung'." }
+  ]
+}
