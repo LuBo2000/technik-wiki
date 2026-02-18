@@ -35,6 +35,59 @@
     
     { "t": "Popschutz / Windschutz", "c": "Ton", "s": "Zubehör & Effekte", "d": "Ein feinmaschiges Gewebe oder Schaumstoff vor der Kapsel. Es bricht den harten Luftstrom von Plosivlauten (P, B, T) oder Wind, bevor er die Membran trifft und ein unangenehmes 'Ploppen' oder Rumpeln verursacht." },
     { "t": "Spinne (Shock Mount)", "c": "Ton", "s": "Zubehör & Effekte", "d": "Eine elastische Aufhängung für das Mikrofon im Stativ. Sie entkoppelt das Gehäuse mechanisch vom Boden, sodass Trittschall oder Erschütterungen am Stativ nicht als tieffrequentes Rumpeln im Signal landen." },
-    { "t": "Nahbesprechungseffekt", "c": "Ton", "s": "Zubehör & Effekte", "d": "Ein physikalisches Phänomen bei gerichteten Mikrofonen (Niere/Acht): Je näher die Schallquelle an der Kapsel ist, desto stärker werden die tiefen Frequenzen angehoben. Sänger nutzen dies bewusst für eine 'vollere' Stimme." }
+    { "t": "Nahbesprechungseffekt", "c": "Ton", "s": "Zubehör & Effekte", "d": "Ein physikalisches Phänomen bei gerichteten Mikrofonen (Niere/Acht): Je näher die Schallquelle an der Kapsel ist, desto stärker werden die tiefen Frequenzen angehoben. Sänger nutzen dies bewusst für eine 'vollere' Stimme." },
+    { "t": "Noise Gate", "c": "Ton", "s": "Mischpult & Processing", "d": "Ein Dynamikprozessor, der den Signalweg unterhalb eines einstellbaren Schwellenwerts (Threshold) komplett abschaltet oder dämpft. Wird oft bei Schlagzeugen genutzt, um das Übersprechen anderer Instrumente in den Pausen zu unterdrücken." },
+  { "t": "Limiter", "c": "Ton", "s": "Mischpult & Processing", "d": "Eine extreme Form des Kompressors mit einer sehr hohen Ratio (z.B. 20:1 oder Unendlich:1). Er dient als Schutz für Lautsprecher und Ohren, indem er verhindert, dass ein Signal einen festgelegten Maximalpegel überschreitet." },
+  { "t": "Reverb & Delay", "c": "Ton", "s": "Zubehör & Effekte", "d": "Zeitbasierte Effekte. Reverb (Hall) simuliert die akustische Antwort eines Raumes. Delay (Echo) wiederholt das Signal zeitversetzt. Beide werden genutzt, um dem Mix Tiefe und Raumcharakter zu verleihen." },
+  { "t": "Symmetrische Signalführung (Balanced)", "c": "Ton", "s": "Systeme & Hardware", "d": "Ein Verfahren zur störungsfreien Übertragung über lange Kabelwege. Das Signal wird doppelt (einmal phasengedreht) übertragen. Störungen, die auf dem Weg einstreuen, löschen sich am Zielgerät mathematisch aus." },
+  { "t": "XLR / Speakon / Klinke", "c": "Ton", "s": "Systeme & Hardware", "d": "Standard-Steckverbinder. XLR: Symmetrische Signale (Mikrofone). Speakon: Hochstrom-Verbindungen für Lautsprecher (verriegelbar). Klinke (TRS/TS): Für Instrumente oder Kopfhörer." },
+  { "t": "Stagebox / Multicore", "c": "Ton", "s": "Systeme & Hardware", "d": "Die Schnittstelle auf der Bühne. Das Multicore bündelt viele einzelne Kanäle in einem dicken Kabel (analog) oder einem Netzwerkkabel (digital), um sie zum Mischpult (FOH) zu führen." },
+  { "t": "UHF / VHF & Frequenzmanagement", "c": "Ton", "s": "Mikrofonie & Physik", "d": "Die Funkbereiche für drahtlose Systeme. Da Funkstrecken (Mikrofone/In-Ear) in Konkurrenz zum Mobilfunk (LTE) stehen, ist eine sorgfältige Frequenzplanung essenziell, um Dropouts zu vermeiden." },
+  { "t": "Phase / Polarität", "c": "Ton", "s": "Mikrofonie & Physik", "d": "Beschreibt die Schwingungsrichtung des Schalls. Wenn zwei Mikrofone dasselbe Signal aufnehmen, aber die Phase gedreht ist (180°), löscht sich der Schall fast komplett aus (Kammfiltereffekt)." },
+  { "t": "Delay-Line", "c": "Ton", "s": "Systeme & Hardware", "d": "Zusätzliche Lautsprecherreihen in großen Hallen oder Open-Airs. Sie werden zeitverzögert angesteuert, damit ihr Schall exakt zeitgleich mit dem Schall der Haupt-PA beim Zuschauer ankommt." },
+  { "t": "MADI / AES/EBU", "c": "Ton", "s": "Systeme & Hardware", "d": "Digitale Audioschnittstellen. AES/EBU überträgt 2 Kanäle über XLR. MADI überträgt bis zu 64 Kanäle über Koaxial- oder Glasfaserkabel. Häufig genutzt für die Verbindung von Pult und Stagebox." },
+  { 
+    "t": "XLR (3-Pol)", 
+    "c": "Ton", 
+    "s": "Steckverbinder", 
+    "d": "Der Standard für professionelle Audioverbindungen. Er ist symmetrisch aufgebaut und verriegelbar. Standard-Belegung (EU): Pin 1 = Ground (Schirm), Pin 2 = Hot (+), Pin 3 = Cold (-). Wird für Mikrofone und Line-Signale genutzt." 
+  },
+  { 
+    "t": "XLR (5-Pol)", 
+    "c": "Licht", 
+    "s": "Steckverbinder", 
+    "d": "Der offizielle Standard für DMX512-Signale. Durch die 5 Pole wird eine Verwechslung mit Audiokabeln (3-Pol) verhindert, was die empfindlichen Digitaleingänge schützt. Oft sind nur Pin 1-3 belegt, Pin 4-5 sind für optionale Rückkanäle reserviert." 
+  },
+  { 
+    "t": "Speakon (NL2 / NL4 / NL8)", 
+    "c": "Ton", 
+    "s": "Steckverbinder", 
+    "d": "Spezialstecker für Lautsprecherverbindungen. Er ist berührungssicher, verriegelbar und für hohe Ströme ausgelegt. NL2 (2-polig) für einfache Signale, NL4 (4-polig) für Bi-Amping (getrennter Bass/Hochton über ein Kabel) und NL8 für große Systemverkabelungen." 
+  },
+  { 
+    "t": "Klinke 6,3mm (TS / Mono)", 
+    "c": "Ton", 
+    "s": "Steckverbinder", 
+    "d": "Tip-Sleeve. Besitzt zwei Kontakte (Spitze und Schaft). Wird für unsymmetrische Signale wie E-Gitarren, Keyboards oder kurze Patchwege genutzt. Anfällig für Einstreuungen bei langen Kabelwegen." 
+  },
+  { 
+    "t": "Klinke 6,3mm (TRS / Stereo/Symm.)", 
+    "c": "Ton", 
+    "s": "Steckverbinder", 
+    "d": "Tip-Ring-Sleeve. Besitzt drei Kontakte. Wird entweder für Stereo-Signale (Kopfhörer) oder für eine symmetrische Monoführung (ähnlich wie XLR) genutzt, um Störungen auf langen Wegen zu eliminieren." 
+  },
+  { 
+    "t": "Cinch (RCA)", 
+    "c": "Ton", 
+    "s": "Steckverbinder", 
+    "d": "Unsymmetrischer Standard im DJ- und HiFi-Bereich. Meist farblich codiert (Rot = Rechts, Weiß/Schwarz = Links). Da der Kontakt beim Stecken oft vor der Masse schließt, kann es beim Einstecken unter Last zu lauten Knallgeräuschen kommen." 
+  },
+  { 
+    "t": "Powercon (Blau/Grau vs. True1)", 
+    "c": "Strom", 
+    "s": "Steckverbinder", 
+    "d": "Verriegelbare Kaltgerätestecker. Die alte Serie (Blau = In / Grau = Out) darf NICHT unter Last gesteckt werden. Die neue Serie (True1, Schwarz/Gelb) ist IP65 geschützt und darf wie ein Schuko-Stecker unter Last verbunden oder getrennt werden." 
+  }
+  
   ]
 }

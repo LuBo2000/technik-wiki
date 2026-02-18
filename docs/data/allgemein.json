@@ -8,6 +8,12 @@
     { "t": "Rigger", "c": "Allgemein", "s": "Veranstaltungsorganisation", "d": "Spezialist für das Anschlagen von Lasten und Arbeiten in der Höhe (Traversenmontage)." },
     { "t": "Plot", "c": "Allgemein", "s": "Ausrüstung & Planung", "d": "Ein technischer Plan, meist für Licht (Lightplot) oder Rigging, der die Positionen der Geräte zeigt." },
     { "t": "IP - Schutzklasse", "c": "Allgemein", "s": "Sicherheit & Standards", "d": "Ziffernkombination für den Schutz gegen Fremdkörper (1. Ziffer) und Wasser (2. Ziffer), z.B. IP65." },
-    { "t": "DGUV V17", "c": "Allgemein", "s": "Sicherheit & Standards", "d": "Wichtigste Unfallverhütungsvorschrift für 'Veranstaltungs- und Produktionsstätten für szenische Darstellung'." }
+    { "t": "DGUV V17", "c": "Allgemein", "s": "Sicherheit & Standards", "d": "Wichtigste Unfallverhütungsvorschrift für 'Veranstaltungs- und Produktionsstätten für szenische Darstellung'." },
+    { "t": "PSA (Persönliche Schutzausrüstung)", "c": "Allgemein", "s": "Sicherheit & Standards", "d": "Vorgeschriebene Kleidung für den Aufbau. Dazu gehören Sicherheitsschuhe (S3), Helm und ggf. Warnweste oder Klettergurt." },
+    { "t": "Intercom", "c": "Allgemein", "s": "Kommunikation", "d": "Drahtloses oder kabelgebundenes Kommunikationssystem (Headsets), mit dem Regie, Kamera, Licht und Ton während der Show sprechen können (Partyline)." },
+    { "t": "Changeover", "c": "Allgemein", "s": "Veranstaltungsorganisation", "d": "Die Umbaupause zwischen zwei Bands bei Festivals. Hier muss extrem schnell die Backline getauscht und der Line-Check durchgeführt werden." },
+    { "t": "Dry Hire", "c": "Allgemein", "s": "Wirtschaft", "d": "Die Anmietung von Material ohne Personal. Man holt die Geräte ab, baut selbst auf und bringt sie zurück." },
+    { "t": "Runner", "c": "Allgemein", "s": "Veranstaltungsorganisation", "d": "Eine Person, die für Besorgungen zuständig ist (z.B. fehlende Kabel kaufen, Künstler zum Hotel fahren, Catering auffüllen)." },
+    { "t": "Load-In / Load-Out", "c": "Allgemein", "s": "Logistik", "d": "Das Entladen (In) und Beladen (Out) der Trucks. Oft der anstrengendste Teil des Tages für die Hands." }
   ]
 }

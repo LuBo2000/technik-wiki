@@ -10,6 +10,17 @@
     { "t": "Gaffa", "c": "Bühne", "s": "Sicherung & Befestigung", "d": "Gewebe-Klebeband, das sich meist rückstandslos entfernen lässt. Der Allzweckreiniger der Technik." },
     { "t": "Schäkel", "c": "Bühne", "s": "Sicherung & Befestigung", "d": "U-förmiger Metallbügel mit Schraubbolzen zum Verbinden von Anschlagmitteln." },
     { "t": "Half Coupler", "c": "Bühne", "s": "Sicherung & Befestigung", "d": "Halbschelle zur Befestigung von Geräten direkt an der Traverse." },
-    { "t": "Steelflex", "c": "Bühne", "s": "Sicherung & Befestigung", "d": "Rundschlinge mit Stahlseileinlage (feuerfest), wird zum Anschlagen von Traversen genutzt." }
+    { "t": "Steelflex", "c": "Bühne", "s": "Sicherung & Befestigung", "d": "Rundschlinge mit Stahlseileinlage (feuerfest), wird zum Anschlagen von Traversen genutzt." },
+  { "t": "Scherenpodest", "c": "Bühne", "s": "Bühnenbau & Podeste", "d": "Bühnenelement mit integriertem Scheren-Unterbau, das eine flexible Höhenverstellung (oft in 20-cm-Schritten bis 1m) ohne Beine-Wechsel ermöglicht." },
+  { "t": "Steckfußpodest", "c": "Bühne", "s": "Bühnenbau & Podeste", "d": "Klassisches Bühnenelement (2x1m), bei dem vier Beine (fest oder teleskopierbar) in Eckaufnahmen gesteckt werden. Sehr stabil und platzsparend beim Transport." },
+  { "t": "Gaze", "c": "Bühne", "s": "Stoffe & Textilien", "d": "Grobmaschiges, winddurchlässiges Netzgewebe (meist Polyethylen). Wird im Open-Air-Bereich vor Lautsprechern oder als Sichtschutz an Traversen verwendet." },
+  { "t": "Bühnenmolton", "c": "Bühne", "s": "Stoffe & Textilien", "d": "Schwerer Baumwollstoff (ca. 300g/m²), der blickdicht und schallschluckend ist. Muss nach DIN 4102 B1 schwer entflammbar sein." },
+  { "t": "Dekomolton", "c": "Bühne", "s": "Stoffe & Textilien", "d": "Leichtere Variante des Moltons (ca. 160g/m²). Er ist zwar ebenfalls B1 zertifiziert, aber nicht komplett blickdicht und weniger robust als Bühnenmolton." },
+  { "t": "Ground Support", "c": "Bühne", "s": "Traversen & Aufhängung", "d": "Ein eigenständiges Traversensystem auf Towern (Türmen), das ein Dach oder ein Grid trägt, wenn keine Hängepunkte an der Hallendecke verfügbar sind." },
+  { "t": "Absturzkante", "c": "Bühne", "s": "Sicherheit & Standards", "d": "Die Grenze einer erhöhten Bühnenfläche. Ab einer gewissen Höhe (Vorschriften beachten) muss diese durch Geländer, Sichtmarkierungen oder 'Glow-Tape' gesichert werden." },
+  { "t": "Geländer (Zarge)", "c": "Bühne", "s": "Bühnenbau & Podeste", "d": "Sicherheitsvorrichtung für Bühnenelemente. Geländer werden seitlich am Podestrahmen verschraubt, um Personen vor dem Herunterfallen zu schützen." },
+  { "t": "Layher (Modulgerüst)", "c": "Bühne", "s": "Bühnenbau & Podeste", "d": "Ein weit verbreitetes Modulgerüst-System, das im Veranstaltungsbau für PA-Türme, Tribünen oder massive Unterkonstruktionen genutzt wird." },
+  { "t": "Anschlagpunkt", "c": "Bühne", "s": "Traversen & Aufhängung", "d": "Ein definierter und geprüfter Punkt (z.B. an der Hallendecke), an dem Lasten oder Motoren befestigt werden dürfen." },
+  { "t": "C-Haken", "c": "Bühne", "s": "Sicherung & Befestigung", "d": "Standard-Befestigungshaken für Scheinwerfer an Traversen. Wichtig: Die Feststellschraube darf die Traverse nicht beschädigen (Halbschellen/Coupler sind oft die bessere Wahl)." }
   ]
 }
