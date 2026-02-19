@@ -128,11 +128,18 @@ function renderWiki(data) {
     const searchInfo = document.getElementById('searchInfo');
     searchInfo.textContent = `${data.length} Eintrag${data.length !== 1 ? 'e' : ''} gefunden`;
 }
+// Hilfsfunktion für robustere Suche (entfernt Bindestriche und Leerzeichen für den Vergleich)
+const normalizeText = (text) => {
+    if (!text) return '';
+    // Wandelt alles in Kleinbuchstaben um und entfernt alle Leerzeichen (\s) und Bindestriche (\-)
+    return text.toLowerCase().replace(/[\s\-]/g, '');
+};
 
 // Suche-Logik (durchsucht Titel, Beschreibung, Subkategorie und respektiert aktive Filter)
 document.getElementById('searchInput').addEventListener('input', (e) => {
     const valRaw = e.target.value;
-    const val = valRaw.toLowerCase().trim();
+    const val = valRaw.trim(); // Original für Leer-Prüfung behalten
+    const searchVal = normalizeText(valRaw); // Normalisierter Suchbegriff für den Abgleich
 
     if (!val) {
         // Wenn Suchfeld leer ist: zeige je nach aktiver Kategorie entweder alle oder die Kategorie-Inhalte
@@ -152,12 +159,12 @@ document.getElementById('searchInput').addEventListener('input', (e) => {
         return;
     }
 
-    // Grundlegende Suche über alle Felder
+    // Grundlegende Suche über alle Felder (mit der neuen Normalisierungsfunktion)
     let filtered = wikiData.filter(i => 
-        i.t.toLowerCase().includes(val) ||
-        i.d.toLowerCase().includes(val) ||
-        (i.s && i.s.toLowerCase().includes(val)) ||
-        i.c.toLowerCase().includes(val)
+        normalizeText(i.t).includes(searchVal) ||
+        normalizeText(i.d).includes(searchVal) ||
+        normalizeText(i.s).includes(searchVal) ||
+        normalizeText(i.c).includes(searchVal)
     );
 
     // Wenn eine Kategorie ausgewählt ist, beschränke die Suche darauf
