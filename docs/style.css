@@ -19,20 +19,30 @@
 
 :root {
     /* Global color tokens — bearbeite hier alle Farben an einem Ort */
-    --bg: #555555;
-    --text: #f1f5f9;
-    --accent: #3b82f6;
-
-    --color-ton: #ef4444;
-    --color-licht: #1800f3;
-    --color-video: #8912a7;
-    --color-buehne: #01ffddfd;
-    --color-strom: #007c1f;
-    --color-allgemein: #a8a8a8;
-    --color-netzwerk: #ff9b05;
-
-    --btn-feedback-bg: #10b981;
-    --btn-feedback-hover: #059669;
+        --bg: #6b7280;
+        --text: #0f172a; /* page-level text (light on cards) */
+        --accent: #2563eb;
+    
+        --color-ton: #ef4444;
+        --color-licht: #1800f3;
+        --color-video: #8912a7;
+        --color-buehne: #01ffddfd;
+        --color-strom: #007c1f;
+        --color-allgemein: #a8a8a8;
+        --color-netzwerk: #ff9b05;
+    
+        --btn-feedback-bg: #10b981;
+        --btn-feedback-hover: #059669;
+    
+        /* Card / field tokens */
+        --card-bg: #f8fafc; /* helle Karte für guten Kontrast zum grauen Hintergrund */
+        --card-text: #0f172a;
+        --card-title: #0b1220;
+        --card-desc: #475569;
+        --card-border: rgba(15,23,42,0.06);
+    
+        --pill-bg: rgba(15,23,42,0.06);
+        --pill-text: #0f172a;
 }
 
 body {
@@ -44,7 +54,11 @@ body {
 .tag-pill {
     cursor: pointer;
     transition: all 0.3s;
-    display: inline-block;
+        border-left: 4px solid var(--accent);
+        background-color: var(--card-bg);
+        color: var(--card-text);
+        box-shadow: 0 6px 18px rgba(2,6,23,0.08);
+        border: 1px solid var(--card-border);
 }
 .tag-pill:hover {
     opacity: 0.8;
@@ -53,6 +67,28 @@ body {
     display: inline-block;
     margin-left: 0.5rem;
 }
+
+    /* Card-specific element overrides */
+    .term-card h3 {
+        color: var(--card-title);
+    }
+    .card-desc {
+        color: var(--card-desc);
+    }
+    .cat-badge {
+        background-color: var(--pill-bg);
+        color: var(--pill-text);
+        padding: 0.35rem 0.5rem;
+        border-radius: 6px;
+        font-size: 0.75rem;
+    }
+    .tag-badge {
+        background-color: var(--pill-bg);
+        color: var(--pill-text);
+        padding: 0.2rem 0.4rem;
+        border-radius: 6px;
+        font-size: 0.75rem;
+    }
 
 /* Focus styles for keyboard users */
 .category-pill:focus,

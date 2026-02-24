@@ -121,7 +121,7 @@
 
         data.forEach(item => {
             const card = document.createElement('div');
-            card.className = 'term-card bg-slate-800 p-4 rounded-lg shadow border-l-4';
+            card.className = 'term-card p-4 rounded-lg shadow border-l-4';
             card.style.borderLeftColor = categoryColors[item.c] || 'var(--accent)';
 
             const top = document.createElement('div');
@@ -131,11 +131,11 @@
             header.className = 'flex justify-between items-start gap-2';
 
             const h3 = document.createElement('h3');
-            h3.className = 'font-bold text-lg text-white flex-grow';
+            h3.className = 'font-bold text-lg flex-grow';
             h3.textContent = item.t || '';
 
             const catSpan = document.createElement('span');
-            catSpan.className = 'text-xs font-mono bg-slate-700 px-2 py-1 rounded text-slate-300 whitespace-nowrap';
+            catSpan.className = 'cat-badge font-mono whitespace-nowrap';
             catSpan.textContent = item.c || '';
 
             header.appendChild(h3);
@@ -148,7 +148,7 @@
 
                 const subBtn = document.createElement('button');
                 subBtn.type = 'button';
-                subBtn.className = 'tag-badge text-xs bg-slate-600 px-2 py-0.5 rounded text-slate-200 cursor-pointer hover:bg-slate-500';
+                subBtn.className = 'tag-badge';
                 subBtn.title = `Nach '${item.s}' filtern`;
                 subBtn.textContent = item.s;
                 subBtn.addEventListener('click', () => filterSubcategory(item.s, item.c));
@@ -158,7 +158,7 @@
             }
 
             const desc = document.createElement('p');
-            desc.className = 'text-slate-400 text-sm leading-relaxed';
+            desc.className = 'card-desc text-sm leading-relaxed';
             desc.textContent = item.d || '';
 
             card.appendChild(top);
