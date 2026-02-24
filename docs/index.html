@@ -12,19 +12,11 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Veranstaltungstechnik Wiki — Begriffe und Konzepte zu Ton, Licht, Video, Bühne, Strom und Netzwerk.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EventTech Wiki Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .category-pill { cursor: pointer; transition: all 0.3s; }
-        .category-pill:hover { opacity: 0.8; transform: translateY(-1px); }
-        .tag-pill { cursor: pointer; transition: all 0.3s; display: inline-block; }
-        .tag-pill:hover { opacity: 0.8; }
-        .tag-badge { display: inline-block; margin-left: 0.5rem; }
-        .term-card { transition: all 0.2s; border-left: 4px solid #3b82f6; }
-        .term-card:hover { transform: translateX(5px); }
-        body { background-color: #0f172a; color: #f1f5f9; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="p-4 md:p-8">
 
@@ -36,22 +28,22 @@
 
         <!-- Sticky Filter Bar -->
         <div class="sticky top-0 bg-slate-900 z-10 p-4 rounded-xl shadow-2xl mb-8 border border-slate-700">
-            <!-- Suchleiste -->
-            <input type="text" id="searchInput" placeholder="Begriff oder Tag suchen (z.B. DMX, Niere, grandMA3, Physik)..." 
-                   class="w-full p-3 rounded-lg bg-slate-800 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white mb-4">
+                 <!-- Suchleiste -->
+                 <input type="text" id="searchInput" aria-label="Begriff suchen" placeholder="Begriff oder Tag suchen (z.B. DMX, Niere, grandMA3, Physik)..." 
+                     class="w-full p-3 rounded-lg bg-slate-800 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white mb-4">
             
             <!-- Kategorie Filter -->
             <div class="mb-4">
                 <div class="text-xs text-slate-400 font-bold mb-2">🏷️ KATEGORIEN:</div>
-                <div id="filterContainer" class="flex flex-wrap gap-2 justify-center">
-                    <span class="category-pill bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('All')">Alle</span>
-                    <span class="category-pill bg-emerald-600 hover:bg-emerald-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('Allgemein')">Allgemein</span>
-                    <span class="category-pill bg-red-600 hover:bg-red-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('Ton')">🎤 Ton</span>
-                    <span class="category-pill bg-yellow-600 hover:bg-yellow-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer text-slate-900" onclick="filterCategory('Licht')">💡 Licht</span>
-                    <span class="category-pill bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('Video')">🎬 Video</span>
-                    <span class="category-pill bg-orange-600 hover:bg-orange-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('Bühne')">🎭 Bühne</span>
-                    <span class="category-pill bg-cyan-600 hover:bg-cyan-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('Strom')">⚡ Strom</span>
-                    <span class="category-pill bg-indigo-600 hover:bg-indigo-700 px-3 py-1 rounded-full text-sm font-bold cursor-pointer" onclick="filterCategory('Netzwerk')">🌐 Netzwerk</span>
+                <div id="filterContainer" class="flex flex-wrap gap-2 justify-center" role="toolbar" aria-label="Kategorien">
+                    <button type="button" data-category="All" class="category-pill bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-full text-sm font-bold">Alle</button>
+                    <button type="button" data-category="Allgemein" class="category-pill bg-emerald-600 hover:bg-emerald-700 px-3 py-1 rounded-full text-sm font-bold">Allgemein</button>
+                    <button type="button" data-category="Ton" class="category-pill bg-red-600 hover:bg-red-700 px-3 py-1 rounded-full text-sm font-bold">🎤 Ton</button>
+                    <button type="button" data-category="Licht" class="category-pill bg-yellow-600 hover:bg-yellow-700 px-3 py-1 rounded-full text-sm font-bold text-slate-900">💡 Licht</button>
+                    <button type="button" data-category="Video" class="category-pill bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-full text-sm font-bold">🎬 Video</button>
+                    <button type="button" data-category="Bühne" class="category-pill bg-orange-600 hover:bg-orange-700 px-3 py-1 rounded-full text-sm font-bold">🎭 Bühne</button>
+                    <button type="button" data-category="Strom" class="category-pill bg-cyan-600 hover:bg-cyan-700 px-3 py-1 rounded-full text-sm font-bold">⚡ Strom</button>
+                    <button type="button" data-category="Netzwerk" class="category-pill bg-indigo-600 hover:bg-indigo-700 px-3 py-1 rounded-full text-sm font-bold">🌐 Netzwerk</button>
                 </div>
             </div>
 
@@ -59,7 +51,7 @@
             <div id="subcategoryContainer"></div>
 
             <!-- Info zur Suche -->
-            <div id="searchInfo" class="text-xs text-slate-500 mt-3 text-center"></div>
+            <div id="searchInfo" class="text-xs text-slate-500 mt-3 text-center" aria-live="polite"></div>
         </div>
 
         <!-- Ergebnisse Grid -->

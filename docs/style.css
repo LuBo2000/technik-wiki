@@ -21,3 +21,30 @@ body {
     background-color: #0f172a;
     color: #f1f5f9;
 }
+
+/* Additional rules moved from inline styles in index.html */
+.tag-pill {
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-block;
+}
+.tag-pill:hover {
+    opacity: 0.8;
+}
+.tag-badge {
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+/* Focus styles for keyboard users */
+.category-pill:focus,
+.tag-pill:focus,
+.tag-badge:focus,
+.term-card:focus {
+    outline: 3px solid rgba(99,102,241,0.6);
+    outline-offset: 2px;
+}
+
+button.category-pill {
+    cursor: pointer;
+}
