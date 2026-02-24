@@ -110,19 +110,19 @@
         }
 
         const categoryColors = {
-            'Ton': '#ef4444',
-            'Licht': '#eab308',
-            'Video': '#a855f7',
-            'Bühne': '#ea580c',
-            'Strom': '#06b6d4',
-            'Allgemein': '#10b981',
-            'Netzwerk': '#6366f1'
+            'Ton': 'var(--color-ton)',
+            'Licht': 'var(--color-licht)',
+            'Video': 'var(--color-video)',
+            'Bühne': 'var(--color-buehne)',
+            'Strom': 'var(--color-strom)',
+            'Allgemein': 'var(--color-allgemein)',
+            'Netzwerk': 'var(--color-netzwerk)'
         };
 
         data.forEach(item => {
             const card = document.createElement('div');
             card.className = 'term-card bg-slate-800 p-4 rounded-lg shadow border-l-4';
-            card.style.borderLeftColor = categoryColors[item.c] || '#3b82f6';
+            card.style.borderLeftColor = categoryColors[item.c] || 'var(--accent)';
 
             const top = document.createElement('div');
             top.className = 'mb-2';
@@ -269,6 +269,20 @@
             const cat = btn.getAttribute('data-category');
             btn.addEventListener('click', () => window.filterCategory(cat));
         });
+
+        // Feedback-Button öffnen (öffnet Google-Formular in neuem Tab)
+        const feedbackBtn = document.getElementById('feedbackBtn');
+        if (feedbackBtn) {
+            feedbackBtn.addEventListener('click', () => {
+                const formUrl = 'https://forms.gle/kAD8mf2vtPiYfGfB8'; // TODO: Ersetze durch deinen Google-Formular-Link
+                try {
+                    window.open(formUrl, '_blank', 'noopener');
+                } catch (err) {
+                    // Fallback: Navigation im selben Tab
+                    window.location.href = formUrl;
+                }
+            });
+        }
     };
 
     if (document.readyState === 'loading') {

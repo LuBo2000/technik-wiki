@@ -10,16 +10,34 @@
 
 .term-card {
     transition: all 0.2s;
-    border-left: 4px solid #3b82f6;
+    border-left: 4px solid var(--accent);
 }
 
 .term-card:hover {
     transform: translateX(5px);
 }
 
+:root {
+    /* Global color tokens — bearbeite hier alle Farben an einem Ort */
+    --bg: #555555;
+    --text: #f1f5f9;
+    --accent: #3b82f6;
+
+    --color-ton: #ef4444;
+    --color-licht: #1800f3;
+    --color-video: #8912a7;
+    --color-buehne: #01ffddfd;
+    --color-strom: #007c1f;
+    --color-allgemein: #a8a8a8;
+    --color-netzwerk: #ff9b05;
+
+    --btn-feedback-bg: #10b981;
+    --btn-feedback-hover: #059669;
+}
+
 body {
-    background-color: #0f172a;
-    color: #f1f5f9;
+    background-color: var(--bg);
+    color: var(--text);
 }
 
 /* Additional rules moved from inline styles in index.html */
