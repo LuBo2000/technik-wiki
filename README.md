@@ -2,7 +2,7 @@
 
 Ein umfassendes, durchsuchbares Wiki für Begriffe und Konzepte der Veranstaltungstechnik - kategorisiert nach Ton, Licht, Video, Bühne, Strom und Netzwerk.
 
-🌐 **Live auf GitHub Pages:** https://lubo2000.github.io/technik-wiki/
+🌐 **Live auf GitHub Pages:** https://icfherrenberg.github.io/technik-wiki/
 
 ## Features
 
@@ -26,7 +26,7 @@ Ein umfassendes, durchsuchbares Wiki für Begriffe und Konzepte der Veranstaltun
 
 Das Wiki ist vollständig optimiert für GitHub Pages Hosting. Öffne einfach die URL:
 ```
-https://LuBo2000.github.io/technik-wiki/
+https://ICFHerrenberg.github.io/technik-wiki/
 ```
 
 Fertig! Kein kompliziertes Setup nötig - es funktioniert direkt.
